@@ -2,11 +2,24 @@ import { useState } from "react";
 
 function CommentsPage() {
   const [comments, setComments] = useState([]);
+  const [comment, setComment] = useState("");
 
   const fetchComments = async () => {
-    const response = await fetch(`/api/comments`);
+    const response = await fetch("/api/comments");
     const data = await response.json();
     setComments(data);
+  };
+
+  const submitComment = async () => {
+    const response = await fetch("/api/comments", {
+      method: "POST",
+      body: JSON.stringify({ comment }),
+      headers: {
+        "Content-Type": "application/json",
+      },
+    });
+    const data = await response.json();
+    console.log(data);
   };
 
   return (
@@ -17,11 +30,22 @@ function CommentsPage() {
           Load Comments
         </button>
       </div>
+      <div className="comment card">
+        <label htmlFor="comment">Comment</label>
+        <input
+          type="text"
+          name="comment"
+          value={comment}
+          onChange={(e) => setComment(e.target.value)}
+          placeholder="Your Comment?"
+        />
+        <button className="btn submit" onClick={submitComment}>
+          Submit
+        </button>
+      </div>
       {comments.map((comment) => (
         <div className="card" key={`comment-${comment.id}`}>
-          <h3>
-            {comment.id}. {comment.text}.
-          </h3>
+          <h3>{comment.text}.</h3>
         </div>
       ))}
     </div>
