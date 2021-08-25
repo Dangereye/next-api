@@ -43,9 +43,11 @@ h2 {
 h3 {
   text-transform: capitalize;
 }
+
 .buttons {
   margin-bottom: 4rem;
 }
+
 .btn {
   display: inline-block;
   padding: 0.8rem 1.2rem;
@@ -71,6 +73,9 @@ h3 {
 }
 
 .comment {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
   margin-bottom: 2rem;
 }
 
